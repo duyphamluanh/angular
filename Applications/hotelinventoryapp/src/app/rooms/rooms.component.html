@@ -1,0 +1,8 @@
+<!-- Interpolation -->
+<div>Room name: <strong>{{hotelName}}</strong></div>
+<div [hidden]="hideRooms">
+    <!-- Property binding -->
+    <div [innerText]="'Current quantity: ' + numberOfRooms"></div>
+</div>
+<!-- Event binding -->
+<button (click)="toggle()" [innerText]="buttonShow"></button>
