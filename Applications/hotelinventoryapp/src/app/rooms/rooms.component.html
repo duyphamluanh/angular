@@ -1,8 +1,21 @@
 <!-- Interpolation -->
 <div>Room name: <strong>{{hotelName}}</strong></div>
-<div [hidden]="hideRooms">
+<div [hidden]="hideRooms" [ngClass]="{ 'highlight': !hideRooms}">
     <!-- Property binding -->
-    <div [innerText]="'Current quantity: ' + numberOfRooms"></div>
+    <!-- <div [innerText]="'Current quantity: ' + numberOfRooms"></div> -->
+    <div *ngIf="rooms.availableRoom && rooms.availableRoom > 0">
+        Room List: {{rooms.availableRoom}}
+    </div>
+    <div *ngIf="!rooms.availableRoom || rooms.availableRoom == 0">
+        No rooms left.
+    </div>
+    <div [ngSwitch]="color">
+        <div *ngSwitchCase="'red'" [ngStyle]="{ color: color }">This element is red!</div>
+        <div *ngSwitchCase="'blue'" [ngStyle]="{ color: color }">This element is blue!</div>
+        <div *ngSwitchCase="'green'" [ngStyle]="{ color: color }">This element is green!</div>
+        <div *ngSwitchDefault> This element has no color.</div>
+      </div>
+      <button (click)="toggleColor()">Toggle Color</button>
 </div>
 <!-- Event binding -->
 <button (click)="toggle()" [innerText]="buttonShow"></button>
