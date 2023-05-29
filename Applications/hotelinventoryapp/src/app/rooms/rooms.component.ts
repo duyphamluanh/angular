@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Room } from './rooms';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: "app-rooms",
@@ -7,6 +8,7 @@ import { Room } from './rooms';
   styleUrls: ["./rooms.component.scss"],
 })
 export class RoomsComponent implements OnInit {
+  currentDate = new Date();
   hotelName = "Hilton Hotel";
   numberOfRooms = 10;
   hideRooms = true;
@@ -17,8 +19,16 @@ export class RoomsComponent implements OnInit {
     totalRooms: 20,
   };
   color= "";
+  message$: Observable<string>;
+  myArray = ['apple', 'banana', 'cherry', 'date', 'elderberry'];
 
-  constructor() {}
+  constructor() {
+    this.message$ = new Observable(observer => {
+      setTimeout(() => {
+        observer.next('Hello, world!');
+      }, 3000);
+    });
+  }
 
   ngOnInit(): void {}
 
