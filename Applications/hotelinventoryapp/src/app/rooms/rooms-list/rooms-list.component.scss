@@ -1,0 +1,12 @@
+:host {
+    tr th, tr td {
+        padding-left: .5rem;
+    }
+    tr th {
+        background: whitesmoke;
+    }
+    .even {
+        background: gray;
+        color: white;
+    }
+}

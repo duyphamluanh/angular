@@ -1,41 +1,19 @@
 <!-- Interpolation -->
 <div>Room name: <strong>{{hotelName}}</strong></div>
-<div [hidden]="hideRooms" [ngClass]="{ 'highlight': !hideRooms}">
-    <!-- Property binding -->
+<!-- <div [hidden]="hideRooms" [ngClass]="{ 'highlight': !hideRooms}"> -->
+<div [hidden]="hideRooms">
     <!-- <div [innerText]="'Current quantity: ' + numberOfRooms"></div> -->
-    <div *ngIf="rooms.availableRoom && rooms.availableRoom > 0">
-        Room List: {{rooms.availableRoom}}
+    Number Of Rooms: 
+    <span [ngStyle]="{'color': rooms.availableRooms ? 'green' :'red'}" [innerText]="numberOfRooms"></span>
+    {{ rooms.totalRooms < 0 ? "No rooms" : ''}}
+
+    <div *ngIf="selectedRoom">
+        {{selectedRoom | json}}
     </div>
-    <div *ngIf="!rooms.availableRoom || rooms.availableRoom == 0">
-        No rooms left.
+
+    <div *ngIf="rooms.availableRooms > 0">
+        <app-rooms-list [roomList]="roomList" (selectedRoom)="selectRoom($event)"></app-rooms-list>
     </div>
-    <div [ngSwitch]="color">
-        <div *ngSwitchCase="'red'" [ngStyle]="{ color: color }">This element is red!</div>
-        <div *ngSwitchCase="'blue'" [ngStyle]="{ color: color }">This element is blue!</div>
-        <div *ngSwitchCase="'green'" [ngStyle]="{ color: color }">This element is green!</div>
-        <div *ngSwitchDefault> This element has no color.</div>
-    </div>
-    <button (click)="toggleColor()">Toggle Color</button>
 </div>
 <!-- Event binding -->
 <button (click)="toggle()" [innerText]="buttonShow"></button>
-
-<!-- Pipes -->
-<div>
-    <div>The array: 'apple', 'banana', 'cherry', 'date', 'elderberry'</div>
-    The first three items in the array are:
-    <ul>
-        <li *ngFor="let item of myArray | slice:0:3">{{ item }}</li>
-    </ul>
-</div>
-<div>
-    <div> AsyncPipes message(3s):
-        {{ message$ | async }}
-    </div>
-    <hr>
-    The current date and time is: {{ currentDate | date:'fullDate' }}
-    <hr>
-    The current date and time is: {{ currentDate | date:'MMM d, y h:mm a' }}
-    <div>{{ '(this is slice:0:25 )Hello, world!' | slice:0:28 }}</div>
-    <!-- Output: <div>Hello</div> -->
-</div>
