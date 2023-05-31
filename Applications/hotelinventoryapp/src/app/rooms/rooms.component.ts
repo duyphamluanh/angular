@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChange, ChangeDetectionStrategy, SimpleChanges } from '@angular/core';
 import { Room, Rooms } from './rooms';
 import { Observable } from 'rxjs';
 
@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   templateUrl: "./rooms.component.html",
   styleUrls: ["./rooms.component.scss"],
 })
-export class RoomsComponent implements OnInit {
+export class RoomsComponent implements OnInit, OnChanges {
   hideRooms = true;
   numberOfRooms = 10;
   hotelName = "Hilton Hotel";
@@ -19,6 +19,8 @@ export class RoomsComponent implements OnInit {
   };
   roomList: Rooms[] = [];
   selectedRoom: Rooms | undefined;
+  titleBase: String = "Room list";
+  title = "";
 
   constructor() {
     this.roomList = [
@@ -60,6 +62,17 @@ export class RoomsComponent implements OnInit {
 
   ngOnInit(): void {
     console.log('RoomsComponent inited.')
+    this.title = this.getTitle();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if(changes['selectedRoom']) {
+      console.log('Selected Room changed')
+    }
+  }
+
+  getTitle(): string {
+    return this.titleBase + ' (' + this.roomList.length.toString() + ')';
   }
 
   toggle() {
@@ -70,5 +83,23 @@ export class RoomsComponent implements OnInit {
   selectRoom(room: Rooms) {
     this.selectedRoom = room;
     console.log('Received from Child:', this.selectedRoom);
+  }
+
+  addRoom() {
+    const room: Rooms = {
+        roomNumber: 4,
+        roomType: 'Deluxe Room VIP',
+        amenities: 'Air Conditioner, Free Wi-Fi, TV, Bathroom, Kitchen, Humans',
+        price: 1500,
+        photos:
+          'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
+        checkinTime: new Date('12-Nov-2021'),
+        checkoutTime: new Date('13-Nov-2021'),
+        rating: 5,
+    }
+
+    // this.roomList.push(room);
+    this.roomList = [...this.roomList,room];
+    this.title = this.getTitle();
   }
 }

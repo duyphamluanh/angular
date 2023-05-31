@@ -155,4 +155,5 @@ On the other hand, the `ngDoCheck` hook is called during every change detection 
 
 In general, it's recommended to use the `ngOnChanges` hook to handle changes to input properties, and to use the `ngDoCheck` hook sparingly and only when necessary, as it can be a performance-intensive operation.
 
-#####
+##### Change Detection and ngOnChanges
+

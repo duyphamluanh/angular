@@ -1,4 +1,4 @@
-Rooms List
+<h2>{{title}}</h2>
 <table class="table">
     <tr>
         <th>Index</th>
@@ -12,7 +12,7 @@ Rooms List
         <th>Action</th>
     </tr>
     <tr [ngClass]="e ? 'even' : 'odd'" *ngFor="let room of roomList; let e = even; let o = odd; let i = index;">
-        <td>{{i}}</td>
+        <td>{{i | percent}}</td>
         <td>{{e ? 'even' : 'odd'}}</td>
         <td>{{room.roomNumber}}</td>
         <td>{{room.roomType}}</td>
