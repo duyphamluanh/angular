@@ -28,7 +28,7 @@ When you create an Angular workspace using the Angular CLI, it generates a set o
 3. `node_modules`: This directory contains the installed dependencies for your workspace and its projects. It is created and managed by npm.
 4. `projects`: This directory contains the subdirectories for each project in your workspace. Each project is a separate Angular application or library, and has its own set of files and configuration.
 5. `src`: This directory contains the source files for your workspace and its projects, including the main entry point for each project (`main.ts`), the root component for each project (`app.component.ts`), and other related files.
-6. `e2e`: This directory contains the end-to-end (e2e) tests for your workspace and its projects. These tests are usedto ensure that your application behaves correctly from the user's perspective.
+6. `e2e`: This directory contains the end-to-end (e2e) tests for your workspace and its projects. These tests are used to ensure that your application behaves correctly from the user's perspective.
 Overall, an Angular workspace provides a powerful and flexible way to manage multiple related projects and resources. It allows you to share code, resources, and dependencies across projects, and to streamline the development process by providing a common framework and structure for your codebase.
 
 ## Create a Application

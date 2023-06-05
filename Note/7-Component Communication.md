@@ -2,7 +2,7 @@
 
 In Angular, components can communicate with each other using various techniques, such as input and output properties, event emitters, and services.
 
-- __Input properties__: Components can pass data to child components using input properties. Input properties are declared using the @Input decorator and can be bound tousing property binding in the parent component's template.
+- __Input properties__: Components can pass data to child components using input properties. Input properties are declared using the __@Input decorator__ and can be bound tousing property binding in the parent component's template.
 
 
 - __Output properties and event emitters__: Components can emit events to notify parent components about changes or user interactions using output properties and event emitters. Output properties are declared using the @Output decorator and can be bound to using event binding in the parent component's template. Event emitters are used to emit custom events with data.
@@ -12,7 +12,7 @@ In Angular, components can communicate with each other using various techniques,
 By using these techniques, you can create more modular and reusable components that can communicate with each other and share data and functionality. This can help you to create more complex and scalable applications.
 
 Example of how to use input and output bindings in Angular:
-__Parent Component__: Suppose you have a parent component called ParentComponent that has a property called parentData and a method called parentMethod
+__Parent Component__: Suppose you have a parent component called __ParentComponent__ that has a property called *parentData* and a method called *parentMethod*
 ```typescript
 import { Component } from '@angular/core';
 

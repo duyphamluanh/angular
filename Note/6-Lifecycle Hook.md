@@ -44,7 +44,7 @@ import { Component, OnInit } from '@angular/core';
     </div>
   `
 })
-export class MyComponentimplements OnInit {
+export class MyComponent implements OnInit {
   name: string;
 
   ngOnInit() {
@@ -61,9 +61,7 @@ import { Component, Input, DoCheck } from '@angular/core';
 @Component({
   selector: 'app-my-component',
   template: `
-    <div>
-      Name: {{ name }}
-    </div>
+    <div>Name: {{ name }}</div>
   `
 })
 export class MyComponent implements DoCheck {
@@ -154,6 +152,3 @@ The `ngOnChanges` hook is called whenever one or more input properties of a comp
 On the other hand, the `ngDoCheck` hook is called during every change detection cycle, regardless of whether any input properties have changed. It can be used to detect changes in the component or its child components that may not be detected by the default change detection mechanism. For example, a component might use this hook to manually check the state of a third-party library or to perform some other custom change detection logic.
 
 In general, it's recommended to use the `ngOnChanges` hook to handle changes to input properties, and to use the `ngDoCheck` hook sparingly and only when necessary, as it can be a performance-intensive operation.
-
-##### Change Detection and ngOnChanges
-

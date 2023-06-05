@@ -10,7 +10,7 @@ There are three types of directives:
 
 2. __Attribute Directives__: An Attribute Directive is used to change the behavior or appearance of an element, component, or another directive. Attribute Directives are applied to elements as an attribute, such as [ngClass] or [ngStyle].
 
-3. __Structural Directives__: A Structural Directive is used to change the structure of the HTML layout by adding or removing elements from the DOM. Structural Directives are applied to elements as an attribute with a leading asterisk, such as *ngIf or *ngFor.
+3. __Structural Directives__: A Structural Directive is used to change the structure of the HTML layout by adding or removing elements from the DOM. Structural Directives are applied to elements as an attribute with a leading asterisk (__*__), such as *ngIf or *ngFor.
 
 Built-in Directives
 - *ngIf
