@@ -41,7 +41,7 @@ export class RoomsComponent implements OnInit, OnChanges {
         amenities: 'Air Conditioner, Free Wi-Fi, TV, Bathroom, Kitchen',
         price: 1000,
         photos:
-          'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
+          'https://images.unsplash.com/photo-1674109759637-82b0659b7bb6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80',
         checkinTime: new Date('11-Nov-2021'),
         checkoutTime: new Date('12-Nov-2021'),
         rating: 3.45654,
@@ -92,7 +92,7 @@ export class RoomsComponent implements OnInit, OnChanges {
         amenities: 'Air Conditioner, Free Wi-Fi, TV, Bathroom, Kitchen, Humans',
         price: 1500,
         photos:
-          'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
+          'https://images.unsplash.com/photo-1674109759637-82b0659b7bb6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80',
         checkinTime: new Date('12-Nov-2021'),
         checkoutTime: new Date('13-Nov-2021'),
         rating: 5,

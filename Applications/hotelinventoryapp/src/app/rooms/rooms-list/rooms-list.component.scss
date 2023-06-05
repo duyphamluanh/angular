@@ -1,6 +1,11 @@
 :host {
+    .table {
+        border: 1px solid grey;
+    }
+
     tr th, tr td {
-        padding-left: .5rem;
+        padding: .5rem;
+        vertical-align: top;
     }
     tr th {
         background: whitesmoke;
@@ -8,5 +13,23 @@
     .even {
         background: gray;
         color: white;
+        button {
+            background-color: white;
+            color: gray;
+            border: none;
+            &:hover {
+                background: blue;
+                color: white;
+            }
+        }
+    }
+    .odd {
+        button {
+            background-color: blue;
+            border: none;
+            &:hover {
+                background: gray;
+            }
+        }
     }
 }
