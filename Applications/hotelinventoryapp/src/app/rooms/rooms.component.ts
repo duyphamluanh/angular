@@ -1,13 +1,21 @@
-import { Component, OnInit, OnChanges, SimpleChange, ChangeDetectionStrategy, SimpleChanges } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChange, ChangeDetectionStrategy, SimpleChanges, ViewChild, AfterViewInit, ViewChildren, QueryList } from '@angular/core';
 import { Room, Rooms } from './rooms';
 import { Observable } from 'rxjs';
+import { HeaderComponent } from '../header/header.component';
+import { RoomsListComponent } from './rooms-list/rooms-list.component';
 
 @Component({
   selector: "app-rooms",
   templateUrl: "./rooms.component.html",
   styleUrls: ["./rooms.component.scss"],
 })
-export class RoomsComponent implements OnInit, OnChanges {
+export class RoomsComponent implements OnInit, OnChanges, AfterViewInit {
+  // @ViewChild(HeaderComponent, { static: true })
+  // headerComponent: HeaderComponent = new HeaderComponent;
+  @ViewChild('roomheader', { static: true })
+  headerComponent: HeaderComponent = new HeaderComponent;
+  @ViewChildren(RoomsListComponent) children!: QueryList<RoomsListComponent>;
+
   hideRooms = true;
   numberOfRooms = 10;
   hotelName = "Hilton Hotel";
@@ -69,6 +77,15 @@ export class RoomsComponent implements OnInit, OnChanges {
     if(changes['selectedRoom']) {
       console.log('Selected Room changed')
     }
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.headerComponent.title = "Good morning!";
+      this.children.forEach(child => {
+        console.log(child)
+      })
+    }, 0);
   }
 
   getTitle(): string {
