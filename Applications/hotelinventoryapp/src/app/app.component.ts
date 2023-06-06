@@ -28,8 +28,8 @@ OnInit
 
   ngOnInit(): void {
     setTimeout(() => {
-        const componentRef = this.vcr.createComponent(RoomsComponent);
-        componentRef.instance.numberOfRooms += 1;
+        // const componentRef = this.vcr.createComponent(RoomsComponent);
+        // componentRef.instance.numberOfRooms += 1;
         const elementRef = this.date.nativeElement.innerText = new Date(Date.now()).toLocaleDateString();
       },0 
     )
