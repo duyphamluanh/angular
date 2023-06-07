@@ -1,20 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Optional, Self } from '@angular/core';
 import { RoomsService } from '../rooms/service/rooms.service';
+import { LoggerService } from '../logger.service';
 
 @Component({
   selector: 'app-employee',
   templateUrl: './employee.component.html',
   styleUrls: ['./employee.component.scss'],
-  providers: [RoomsService] // using as local instance
+  providers: [
+    RoomsService,
+    LoggerService
+  ] // using as local instance
 })
 export class EmployeeComponent implements OnInit{
 
   employeeName: string = "John";
 
-  constructor(private roomsService: RoomsService) {
+  constructor(@Self() private roomsService: RoomsService, @Optional() private loggerService: LoggerService) {
   }
 
   ngOnInit(): void {
-      
+    this.loggerService?.log('LoggerService on EmployeeComponent.onInit()');
   }
 }

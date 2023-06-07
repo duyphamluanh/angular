@@ -107,3 +107,7 @@ __Modules__: Modules are used to organize an application into functional blocks 
     `
 This command will create a new module with the specified name and generate the necessary files, including a __TypeScript class__, an __NgModule decorator__, and an __exports array__.
 
+__Tạo environments:__
+`
+ng g environments
+`
