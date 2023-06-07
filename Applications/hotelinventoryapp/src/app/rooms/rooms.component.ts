@@ -1,8 +1,9 @@
-import { Component, OnInit, OnChanges, SimpleChange, ChangeDetectionStrategy, SimpleChanges, ViewChild, AfterViewInit, ViewChildren, QueryList } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChange, ChangeDetectionStrategy, SimpleChanges, ViewChild, AfterViewInit, ViewChildren, QueryList, Inject, inject } from '@angular/core';
 import { Room, Rooms } from './rooms';
 import { Observable } from 'rxjs';
 import { HeaderComponent } from '../header/header.component';
 import { RoomsListComponent } from './rooms-list/rooms-list.component';
+import { RoomsService } from './service/rooms.service';
 
 @Component({
   selector: "app-rooms",
@@ -30,47 +31,49 @@ export class RoomsComponent implements OnInit, OnChanges, AfterViewInit {
   titleBase: String = "Room list";
   title = "";
 
-  constructor() {
-    this.roomList = [
-      {
-        roomNumber: 1,
-        roomType: 'Deluxe Room',
-        amenities: 'Air Conditioner, Free Wi-Fi, TV, Bathroom, Kitchen',
-        price: 500,
-        photos:
-          'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
-        checkinTime: new Date('11-Nov-2021'),
-        checkoutTime: new Date('12-Nov-2021'),
-        rating: 4.5,
-      },
-      {
-        roomNumber: 2,
-        roomType: 'Deluxe Room',
-        amenities: 'Air Conditioner, Free Wi-Fi, TV, Bathroom, Kitchen',
-        price: 1000,
-        photos:
-          'https://images.unsplash.com/photo-1674109759637-82b0659b7bb6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80',
-        checkinTime: new Date('11-Nov-2021'),
-        checkoutTime: new Date('12-Nov-2021'),
-        rating: 3.45654,
-      },
-      {
-        roomNumber: 3,
-        roomType: 'Private Suite',
-        amenities: 'Air Conditioner, Free Wi-Fi, TV, Bathroom, Kitchen',
-        price: 15000,
-        photos:
-          'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
-        checkinTime: new Date('11-Nov-2021'),
-        checkoutTime: new Date('12-Nov-2021'),
-        rating: 2.6,
-      },
-    ];
+  constructor(private roomService: RoomsService) { // Dependencies Injection
+    // this.roomList = [
+    //   {
+    //     roomNumber: 1,
+    //     roomType: 'Deluxe Room',
+    //     amenities: 'Air Conditioner, Free Wi-Fi, TV, Bathroom, Kitchen',
+    //     price: 500,
+    //     photos:
+    //       'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
+    //     checkinTime: new Date('11-Nov-2021'),
+    //     checkoutTime: new Date('12-Nov-2021'),
+    //     rating: 4.5,
+    //   },
+    //   {
+    //     roomNumber: 2,
+    //     roomType: 'Deluxe Room',
+    //     amenities: 'Air Conditioner, Free Wi-Fi, TV, Bathroom, Kitchen',
+    //     price: 1000,
+    //     photos:
+    //       'https://images.unsplash.com/photo-1674109759637-82b0659b7bb6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80',
+    //     checkinTime: new Date('11-Nov-2021'),
+    //     checkoutTime: new Date('12-Nov-2021'),
+    //     rating: 3.45654,
+    //   },
+    //   {
+    //     roomNumber: 3,
+    //     roomType: 'Private Suite',
+    //     amenities: 'Air Conditioner, Free Wi-Fi, TV, Bathroom, Kitchen',
+    //     price: 15000,
+    //     photos:
+    //       'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
+    //     checkinTime: new Date('11-Nov-2021'),
+    //     checkoutTime: new Date('12-Nov-2021'),
+    //     rating: 2.6,
+    //   },
+    // ];
+    // this.roomList = this.roomService.getRooms(); // We should call it in ngOnInit when the components properties and inputs are fully intialized
   }
 
   ngOnInit(): void {
     console.log('RoomsComponent inited.')
     this.title = this.getTitle();
+    this.roomList = this.roomService.getRooms(); 
   }
 
   ngOnChanges(changes: SimpleChanges): void {
