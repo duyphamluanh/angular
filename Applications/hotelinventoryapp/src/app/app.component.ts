@@ -1,6 +1,7 @@
-import { AfterViewInit, Component, ComponentRef, ElementRef, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { AfterViewInit, Component, ComponentRef, ElementRef, Inject, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { RoomsComponent } from './rooms/rooms.component';
-import { timestamp } from 'rxjs';
+import { LocalStorageToken } from './localstorage.token';
+
 
 @Component({
   selector: 'app-root',
@@ -25,6 +26,9 @@ OnInit
   // ngAfterViewInit(): void {
   //   const componentRef = this.vcr.createComponent(RoomsComponent);
   // }
+  constructor(@Inject(LocalStorageToken) private localstoragetoken: Storage) {
+
+  }
 
   ngOnInit(): void {
     setTimeout(() => {
@@ -33,6 +37,7 @@ OnInit
         const elementRef = this.date.nativeElement.innerText = new Date(Date.now()).toLocaleDateString();
       },0 
     )
+    this.localstoragetoken.setItem('hotelname', 'Hilton Hills')
   }
 
 }

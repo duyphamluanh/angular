@@ -48,7 +48,8 @@ export class RoomsService {
     console.log(this.config.apiEndpoint);
     console.log('Rooms service Initialized...')
   }
-
+  // Ừ thi you can truyền biến vô để lấy đúng cái room you muốn sau khi api trả về
+  // Còn hiện tại thì trả về từ cái list dài vl phía trên. 
   getRooms() {
     return this.roomList;
   }
