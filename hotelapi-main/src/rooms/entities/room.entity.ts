@@ -1,10 +1,4 @@
-export interface Room {
-    totalRooms: number;
-    availableRooms: number;
-    bookedRooms: number;
-}
-
-export interface Rooms {
+export class Room {
     roomNumber: string;
     roomType: string;
     amenities: string;

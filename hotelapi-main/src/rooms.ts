@@ -5,7 +5,18 @@ export interface Room {
 }
 
 export interface Rooms {
-    roomNumber: string;
+    roomNumber: number;
+    roomType: string;
+    amenities: string;
+    price: number;
+    photos: string;
+    checkinTime: Date;
+    checkoutTime: Date;
+    rating: number;
+}
+
+export class RoomsDTO {
+    roomNumber?: number;
     roomType: string;
     amenities: string;
     price: number;

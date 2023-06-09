@@ -1,9 +1,9 @@
 import { Component, OnInit, OnChanges, SimpleChange, ChangeDetectionStrategy, SimpleChanges, ViewChild, AfterViewInit, ViewChildren, QueryList, Inject, Self, Optional } from '@angular/core';
 import { Room, Rooms } from './rooms';
-import { Observable } from 'rxjs';
 import { HeaderComponent } from '../header/header.component';
 import { RoomsListComponent } from './rooms-list/rooms-list.component';
 import { RoomsService } from './service/rooms.service';
+import { Observable, observable } from 'rxjs';
 
 @Component({
   selector: "app-rooms",
@@ -12,6 +12,13 @@ import { RoomsService } from './service/rooms.service';
   providers: [RoomsService]
 })
 export class RoomsComponent implements OnInit, OnChanges, AfterViewInit {
+  stream = new Observable(observer => {
+    observer.next('user1');
+    observer.next('user2');
+    observer.next('user3');
+    observer.complete();
+    observer.error('error')
+  })
   // @ViewChild(HeaderComponent, { static: true })
   // headerComponent: HeaderComponent = new HeaderComponent;
   @ViewChild('roomheader', { static: true })
@@ -74,7 +81,12 @@ export class RoomsComponent implements OnInit, OnChanges, AfterViewInit {
   ngOnInit(): void {
     console.log('RoomsComponent inited.')
     this.title = this.getTitle();
-    this.roomList = this.roomService?.getRooms(); 
+    this.stream.subscribe(data => {
+      console.log(data)
+    })
+    this.roomService?.getRooms().subscribe(rooms => {
+      this.roomList = rooms;
+    }); 
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -108,7 +120,7 @@ export class RoomsComponent implements OnInit, OnChanges, AfterViewInit {
 
   addRoom() {
     const room: Rooms = {
-        roomNumber: 4,
+        roomNumber: '4',
         roomType: 'Deluxe Room VIP',
         amenities: 'Air Conditioner, Free Wi-Fi, TV, Bathroom, Kitchen, Humans',
         price: 1500,

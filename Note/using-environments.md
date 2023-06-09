@@ -18,3 +18,4 @@ console.log(environment.apiUrl); // Output: http://localhost:3000/api
 ```
 In this example, we're importing the environment object from the environment.ts file, and we're accessing the production and apiUrl properties of the object using dot notation. We can use these properties to configure our application based on the environment that we're running in.
 
+## Please set on environment.developtment.ts just like evironment.ts when developing or you'll be F*** up :<
