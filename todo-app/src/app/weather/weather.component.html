@@ -1,0 +1,22 @@
+<div class="card">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-2">
+          <div class="weather-icon">
+            <img [src]="weather?.current?.condition.icon" [alt]="weather?.current?.condition.text" [title]="weather?.current?.condition.text">
+          </div>
+        </div>
+        <div class="col-10">
+          <div class="weather-data">
+            <div class="temp">{{ weather?.current?.temp_c }}&#8451;</div>
+            <div class="wind">Wind: {{ weather?.current?.gust_kph }} km/h</div>
+            <div class="uv">UV Index: {{ weather?.current?.uv }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer d-flex">
+        <span>{{ weather?.location?.country }} - {{ weather?.location?.name }}</span>
+        <span class="last-updated ms-auto">Last updated: {{weather?.current?.last_updated }}</span>
+    </div>
+  </div>

@@ -1,0 +1,43 @@
+$color: rgba(0, 0, 0, 0.6);
+$background-pattern-color: rgba(222, 226, 230, 0.5);
+
+:host {
+    display: block;
+    width: 100%;
+    padding: 1rem;
+    margin-bottom: .5rem;
+    box-shadow:  20px 20px 60px #bebebe,
+                -20px -20px 60px #ffffff;
+    background: repeating-linear-gradient(-45deg, transparent, transparent 8px, $background-pattern-color 8px, $background-pattern-color 16px); 
+    form {
+        label {
+            font-size: larger;
+            font-weight: bold;
+            color: $color;
+        }
+    }
+    
+    .requiredtext {
+        color: red;
+    }
+
+    .card {
+        border-color: rgba(222, 226, 230, 0.5);
+        padding: .5rem 0;
+        &.todoItem_description {
+            width: 100%;
+            color: $color;
+            p {
+                color: rgba(0, 0, 0, 0.8);
+            }
+        }
+    }
+
+    .pinner {
+        position: absolute;
+        display: flex;
+        justify-content: flex-end;
+        width: 100%;
+        padding: 0rem 2rem;
+    }
+}

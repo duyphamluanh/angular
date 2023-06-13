@@ -1,0 +1,8 @@
+<div ngbDropdown class="d-inline-block" placement="bottom-right">
+    <button class="btn btn-outline-primary" id="dropdownButton" ngbDropdownToggle></button>
+    <div ngbDropdownMenu aria-labelledby="dropdownButton">
+        <button ngbDropdownItem class="dropdown-item" (click)="pin()" *ngIf="this.item.pinned == undefined || this.item.pinned == false">Pin</button>
+        <button ngbDropdownItem class="dropdown-item" (click)="pin()" *ngIf="this.item.pinned == true">Unpin</button>
+        <button ngbDropdownItem class="dropdown-item" (click)="delete()">Delete</button>
+    </div>
+</div>

@@ -1,0 +1,33 @@
+<h2 class="ps-3 pt-3">Welcome to Noteme...</h2>
+
+<form class="p-3" #todoForm="ngForm" (ngSubmit)="addItem()">
+    <div class="form-group">
+        <label for="name">Name:</label>
+        <input class="form-control" type="text" [(ngModel)]="newItem.name" name="name" required>
+        <div *ngIf="todoForm.controls['name']?.invalid && (todoForm.controls['name']?.dirty || todoForm.controls['name']?.touched)" class="requiredtext">
+                Name is required
+        </div>
+    </div>
+    <div class="form-group mt-3">
+        <label for="description">Description:</label>
+        <textarea class="form-control" rows="{{this.description_input}}" [(ngModel)]="newItem.description" name="description" required></textarea>
+        <div *ngIf="todoForm.controls['description']?.invalid && (todoForm.controls['description']?.dirty || todoForm.controls['description']?.touched)" class="requiredtext">
+                Description is required
+        </div>
+    </div>
+  <button type="submit" class="btn btn-primary mt-1">Add new note</button>
+</form>
+
+<ul class="p-3">
+  <li *ngFor="let item of todoList" class="list-group-item d-flex mb-3">
+    <div class="me-1">
+      <input  type="checkbox" [checked]="item.completed" (change)="markCompleted(item)">
+    </div>
+    <div class="card px-3 py- todoItem_description">
+        <h4>{{item.name}}</h4>
+        <p>{{item.description}}</p>
+        <div *ngIf="item.pinned" class="pinner" ><i class="bi bi-pin-fill"></i></div>
+    </div>
+    <app-dropdown-button [item]="item" (pinned)="onPin($event)" (deleted)="onDelete($event)"></app-dropdown-button>
+  </li>
+</ul>

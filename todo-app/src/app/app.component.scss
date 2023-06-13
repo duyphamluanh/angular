@@ -1,0 +1,13 @@
+
+
+:host {
+    display: block;
+    margin: 1rem auto 0;
+    width: fit-content;
+    width: 768px;
+    padding: 1rem;
+    
+    @media (max-width: 768px) {
+        width: 100%
+    }
+}

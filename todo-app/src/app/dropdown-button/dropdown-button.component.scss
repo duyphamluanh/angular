@@ -1,0 +1,13 @@
+:host {
+    button.dropdown-toggle {
+        margin-left: .25rem;
+        width: 36px;
+        height: 36px;
+        border-color: #dee2e6;
+        background-color: #ffffff;
+    }
+
+    .dropdown-toggle:empty::after{
+        color: #8a8c8f;
+    }
+}
