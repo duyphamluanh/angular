@@ -1,0 +1,13 @@
+:host {
+    display: block;
+    margin: .5rem;
+
+    .item {
+        margin-bottom: 10px;
+        cursor: pointer;
+      }
+       
+    .mat-mdc-card {
+        padding: .5rem;
+    }
+}
