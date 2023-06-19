@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Task } from '../task/task';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-task-dialog',
@@ -10,8 +10,34 @@ import { FormControl, Validators } from '@angular/forms';
 })
 export class TaskDialogComponent {
   private backupTask: Partial<Task> = { ...this.data.task };
-  title = new FormControl('', [Validators.required]);
-  description = new FormControl('', [Validators.required]);
+  // title = new FormControl('', [Validators.required]);
+  // description = new FormControl('', [Validators.required]);
+
+  todoForm: FormGroup = new FormGroup({
+    title : new FormControl(this.data.task.title, [Validators.required]),
+    description : new FormControl(this.data.task.description, [Validators.required]),
+    date : new FormControl(this.data.task.date?.toDate())
+  });
+
+  get title(): any {
+    return this.todoForm.get('title');
+  }
+
+  get description(): any {
+    return this.todoForm.get('description');
+  }
+
+  get date(): any {
+    return this.todoForm.get('date');
+  }
+
+  get task(): any {
+    return {
+      'title': this.title.value,
+      'description': this.description.value,
+      'date': this.date.value
+    };
+  }
 
   constructor(
     public dialogRef: MatDialogRef<TaskDialogComponent>,
@@ -21,6 +47,7 @@ export class TaskDialogComponent {
   cancel(): void {
     this.data.task.title = this.backupTask.title;
     this.data.task.description = this.backupTask.description;
+    this.data.task.date = this.backupTask.date;
     this.dialogRef.close(this.data);
   }
 

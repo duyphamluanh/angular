@@ -21,19 +21,6 @@ const getObservable = (collection: AngularFirestoreCollection<Task>) => {
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  // todo: Task[] = [
-  //   {
-  //     title: 'Buy milk',
-  //     description: 'Go to the store and buy milk'
-  //   },
-  //   {
-  //     title: 'Create a Kanban app',
-  //     description: 'Using Firebase and Angular create a Kanban app!'
-  //   }
-  // ];
-  // inProgress: Task[] = [];
-  // done: Task[] = [];
-
   // todo = this.store.collection('todo').valueChanges({ idField: 'id' }) as Observable<Task[]>;
   // inProgress = this.store.collection('inProgress').valueChanges({ idField: 'id' }) as Observable<Task[]>;
   // done = this.store.collection('done').valueChanges({ idField: 'id' }) as Observable<Task[]>;
@@ -43,7 +30,6 @@ export class AppComponent {
   done = getObservable(this.store.collection('done')) as Observable<Task[]>;
   
   constructor(private dialog: MatDialog, private store: AngularFirestore) {
-    
   }
 
   editTask(list: 'done' | 'todo' | 'inProgress', task: Task): void {
@@ -59,22 +45,17 @@ export class AppComponent {
       if (!result) {
         return;
       }
-      // const dataList = this[list];
-      // const taskIndex = dataList.indexOf(task);
-      // if (result.delete) {
-      //   dataList.splice(taskIndex, 1);
-      // } else {
-      //   dataList[taskIndex] = task;
-      // }
       if (result.delete) {
         this.store.collection(list).doc(task.id).delete();
       } else {
-        this.store.collection(list).doc(task.id).update(task);
+        if(result.task.title == undefined || result.task.description == undefined ) 
+          return;
+        if(result.task.title.trim() == "" || result.task.description.trim() == "") 
+          return;
+        this.store.collection(list).doc(task.id).update(result.task);
       }
-    
     });
   }
-
 
   newTask(): void {
     const dialogRef = this.dialog.open(TaskDialogComponent, {
@@ -89,11 +70,8 @@ export class AppComponent {
           return;
         if(result.task.title == undefined || result.task.description == undefined ) 
           return;
-        
         if(result.task.title.trim() == "" || result.task.description.trim() == "") 
           return;
-        
-        // this.todo.push(result.task);
         this.store.collection('todo').add(result.task)
       });
 

@@ -3,5 +3,6 @@
     <p>
       {{ task.description }}
     </p>
+    <div ng-show="item.dt" class="text-end">Added: {{taskdate | date:'MMM dd, yyyy' }} </div>
 </mat-card>
   
