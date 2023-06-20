@@ -62,10 +62,6 @@ ngOnInit(): void {
     }); 
     }
 ```
-
-#### RxJs, Observables and streams
-
-
 #### http methods
 
 

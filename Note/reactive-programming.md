@@ -1,0 +1,7 @@
+Reactive programming is a programming paradigm that focuses on asynchronous data streams and the propagation of changes. The basic idea is to create a data flow graph that describes how data changes over time, and then write code that reacts to changes in the data.
+
+In reactive programming, data streams are modeled as sequences of events that are emitted over time. These events can be anything from mouse clicks and key presses to network requests and database queries. The code that processes these events is written in a declarative style, where the programmer describes what should happen when certain events occur, rather than writing imperative code that explicitly tells the computer how to do things.
+
+One of the key benefits of reactive programming is its ability to handle concurrency and parallelism in a more natural way than traditional imperative programming. Because reactive code is based on asynchronous data streams, it can more easily handle multiple streams of data in parallel, without having to resort to complex threading or synchronization mechanisms.
+
+Reactive programming has become increasingly popular in recent years, particularly in the context of web development and user interfaces. Some popular reactive programming frameworks and libraries include React, Angular, and RxJava.

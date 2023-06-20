@@ -11,8 +11,13 @@ export class RoomsListComponent implements OnInit, OnChanges, OnDestroy{
   @Input() title: string = "";
   @Input() roomList: Rooms[] = [];
   @Output() selectedRoom = new EventEmitter<Rooms>(); 
+  @Output() deletedRoom = new EventEmitter<string>(); 
 
   constructor() {
+  }
+
+  deleteRoom(rooms: Rooms) {
+    this.deletedRoom.emit(rooms.roomNumber);
   }
 
   selectRoom(rooms: Rooms) {

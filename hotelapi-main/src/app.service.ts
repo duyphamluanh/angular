@@ -30,7 +30,7 @@ export class AppService {
       },
       {
         roomNumber: 3,
-        roomType: 'Private Suite',
+        roomType: 'Private Suite III',
         amenities: 'Air Conditioner, Free Wi-Fi, TV, Bathroom, Kitchen',
         price: 15000,
         photos:

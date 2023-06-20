@@ -17,8 +17,9 @@
     </div>
 
     <div *ngIf="rooms.availableRooms > 0 && !hideRooms">
-        <app-rooms-list [roomList]="roomList" (selectedRoom)="selectRoom($event)" [title]="title"></app-rooms-list>
+        <app-rooms-list [roomList]="roomList" (selectedRoom)="selectRoom($event)" (deletedRoom)="deleteRoom($event)" [title]="title"></app-rooms-list>
     </div>
 </div>
 <!-- Event binding -->
 <button (click)="toggle()" [innerText]="buttonShow"></button>
+<button (click)="editRoom()" >Edit</button>

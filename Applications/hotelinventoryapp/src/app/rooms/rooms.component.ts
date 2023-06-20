@@ -3,7 +3,7 @@ import { Room, Rooms } from './rooms';
 import { HeaderComponent } from '../header/header.component';
 import { RoomsListComponent } from './rooms-list/rooms-list.component';
 import { RoomsService } from './service/rooms.service';
-import { Observable, observable } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: "app-rooms",
@@ -40,52 +40,22 @@ export class RoomsComponent implements OnInit, OnChanges, AfterViewInit {
   title = "";
 
   constructor(@Optional() private roomService: RoomsService) { // Dependencies Injection
-    // this.roomList = [
-    //   {
-    //     roomNumber: 1,
-    //     roomType: 'Deluxe Room',
-    //     amenities: 'Air Conditioner, Free Wi-Fi, TV, Bathroom, Kitchen',
-    //     price: 500,
-    //     photos:
-    //       'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
-    //     checkinTime: new Date('11-Nov-2021'),
-    //     checkoutTime: new Date('12-Nov-2021'),
-    //     rating: 4.5,
-    //   },
-    //   {
-    //     roomNumber: 2,
-    //     roomType: 'Deluxe Room',
-    //     amenities: 'Air Conditioner, Free Wi-Fi, TV, Bathroom, Kitchen',
-    //     price: 1000,
-    //     photos:
-    //       'https://images.unsplash.com/photo-1674109759637-82b0659b7bb6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80',
-    //     checkinTime: new Date('11-Nov-2021'),
-    //     checkoutTime: new Date('12-Nov-2021'),
-    //     rating: 3.45654,
-    //   },
-    //   {
-    //     roomNumber: 3,
-    //     roomType: 'Private Suite',
-    //     amenities: 'Air Conditioner, Free Wi-Fi, TV, Bathroom, Kitchen',
-    //     price: 15000,
-    //     photos:
-    //       'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
-    //     checkinTime: new Date('11-Nov-2021'),
-    //     checkoutTime: new Date('12-Nov-2021'),
-    //     rating: 2.6,
-    //   },
-    // ];
     // this.roomList = this.roomService.getRooms(); // We should call it in ngOnInit when the components properties and inputs are fully intialized
   }
 
   ngOnInit(): void {
     console.log('RoomsComponent inited.')
-    this.title = this.getTitle();
-    this.stream.subscribe(data => {
-      console.log(data)
+    // this.stream.subscribe(data => {
+    //   console.log(data)
+    // })
+    this.stream.subscribe({
+      next: (value) => console.log(value),
+      complete: () => console.log('complete'),
+      error: (err) => console.log(err)
     })
     this.roomService?.getRooms().subscribe(rooms => {
       this.roomList = rooms;
+      this.title = this.getTitle();
     }); 
   }
 
@@ -132,7 +102,33 @@ export class RoomsComponent implements OnInit, OnChanges, AfterViewInit {
     }
 
     // this.roomList.push(room);
-    this.roomList = [...this.roomList,room];
-    this.title = this.getTitle();
+    // this.roomList = [...this.roomList,room];
+    this.roomService.addRooms(room).subscribe((data) => {
+      this.roomList = data;
+      this.title = this.getTitle();
+    });
+  }
+
+  editRoom() {
+      const room: Rooms = {
+        roomNumber: '3',
+        roomType: 'Deluxe Room VIP',
+        amenities: 'Air Conditioner, Free Wi-Fi, TV, Bathroom, Kitchen, Humans',
+        price: 1500,
+        photos:
+          'https://images.unsplash.com/photo-1674109759637-82b0659b7bb6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80',
+        checkinTime: new Date('12-Nov-2022'),
+        checkoutTime: new Date('13-Nov-2022'),
+        rating: 5,
+    }
+    this.roomService.editRoom(room).subscribe((data) => {
+        this.roomList = data;
+    }) 
+  }
+  
+  deleteRoom(roomid: string) {
+    this.roomService.delete(roomid).subscribe((data) => {
+      this.roomList = data;
+  }) 
   }
 }

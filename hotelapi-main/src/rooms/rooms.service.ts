@@ -31,7 +31,7 @@ export class RoomsService {
     },
     {
       roomNumber: '3',
-      roomType: 'Private Suite',
+      roomType: 'Private Suite III',
       amenities: 'Air Conditioner, Free Wi-Fi, TV, Bathroom, Kitchen',
       price: 15000,
       photos:
@@ -68,6 +68,7 @@ export class RoomsService {
   }
 
   remove(id: string) {
-    return this.rooms.filter((room) => room.roomNumber !== id);
+    this.rooms = this.rooms.filter((room) => room.roomNumber !== id);
+    return this.rooms;
   }
 }
