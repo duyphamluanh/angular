@@ -3,7 +3,8 @@ import { Room, Rooms } from './rooms';
 import { HeaderComponent } from '../header/header.component';
 import { RoomsListComponent } from './rooms-list/rooms-list.component';
 import { RoomsService } from './service/rooms.service';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
+import { HttpEventType, HttpProgressEvent } from '@angular/common/http';
 
 @Component({
   selector: "app-rooms",
@@ -45,18 +46,41 @@ export class RoomsComponent implements OnInit, OnChanges, AfterViewInit {
 
   ngOnInit(): void {
     console.log('RoomsComponent inited.')
-    // this.stream.subscribe(data => {
-    //   console.log(data)
-    // })
     this.stream.subscribe({
       next: (value) => console.log(value),
       complete: () => console.log('complete'),
       error: (err) => console.log(err)
     })
+
+    this.roomService?.getPhotos().subscribe(photos => {
+      switch(photos.type) {
+        case HttpEventType.Sent:
+          console.log('Request sent to server'); break;
+        case HttpEventType.ResponseHeader:
+          console.log('Response header received');break;
+        case HttpEventType.DownloadProgress: 
+          const progressEvent = photos as HttpProgressEvent;
+          if(progressEvent.total) {
+            const percentDone = Math.round(100 * progressEvent.loaded / progressEvent.total);
+            console.log(`File download progress: ${percentDone}%`);
+          } else {
+            console.log(`Receiving...${progressEvent.loaded/1024} KB`);
+          }
+          break;
+        case HttpEventType.Response: 
+          console.log('Response received');
+          console.log(photos);
+          break;
+        default:
+          break;
+      }
+    });
+
     this.roomService?.getRooms().subscribe(rooms => {
       this.roomList = rooms;
       this.title = this.getTitle();
     }); 
+    
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -127,8 +151,8 @@ export class RoomsComponent implements OnInit, OnChanges, AfterViewInit {
   }
   
   deleteRoom(roomid: string) {
-    this.roomService.delete(roomid).subscribe((data) => {
-      this.roomList = data;
-  }) 
+      this.roomService.delete(roomid).subscribe((data) => {
+        this.roomList = data;
+    }) 
   }
 }
