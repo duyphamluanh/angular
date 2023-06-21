@@ -1,9 +1,9 @@
-import { Component, OnInit, OnChanges, SimpleChange, ChangeDetectionStrategy, SimpleChanges, ViewChild, AfterViewInit, ViewChildren, QueryList, Inject, Self, Optional } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChange, ChangeDetectionStrategy, SimpleChanges, ViewChild, AfterViewInit, ViewChildren, QueryList, Inject, Self, Optional, OnDestroy } from '@angular/core';
 import { Room, Rooms } from './rooms';
 import { HeaderComponent } from '../header/header.component';
 import { RoomsListComponent } from './rooms-list/rooms-list.component';
 import { RoomsService } from './service/rooms.service';
-import { Observable, tap } from 'rxjs';
+import { Observable, Subscription, tap } from 'rxjs';
 import { HttpEventType, HttpProgressEvent } from '@angular/common/http';
 
 @Component({
@@ -12,7 +12,7 @@ import { HttpEventType, HttpProgressEvent } from '@angular/common/http';
   styleUrls: ["./rooms.component.scss"],
   providers: [RoomsService]
 })
-export class RoomsComponent implements OnInit, OnChanges, AfterViewInit {
+export class RoomsComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy {
   stream = new Observable(observer => {
     observer.next('user1');
     observer.next('user2');
@@ -26,6 +26,7 @@ export class RoomsComponent implements OnInit, OnChanges, AfterViewInit {
   headerComponent: HeaderComponent = new HeaderComponent;
   @ViewChildren(RoomsListComponent) children!: QueryList<RoomsListComponent>;
 
+  title = "";
   hideRooms = true;
   numberOfRooms = 10;
   hotelName = "Hilton Hotel";
@@ -38,7 +39,8 @@ export class RoomsComponent implements OnInit, OnChanges, AfterViewInit {
   roomList: Rooms[] = [];
   selectedRoom: Rooms | undefined;
   titleBase: String = "Room list";
-  title = "";
+  subscription! : Subscription;
+  rooms$ =  this.roomService.getRooms$;
 
   constructor(@Optional() private roomService: RoomsService) { // Dependencies Injection
     // this.roomList = this.roomService.getRooms(); // We should call it in ngOnInit when the components properties and inputs are fully intialized
@@ -75,11 +77,11 @@ export class RoomsComponent implements OnInit, OnChanges, AfterViewInit {
           break;
       }
     });
-
-    this.roomService?.getRooms().subscribe(rooms => {
-      this.roomList = rooms;
-      this.title = this.getTitle();
-    }); 
+    // this.roomService?.getRooms().subscribe(rooms => {
+    // this.subscription = this.roomService?.getRooms$.subscribe(rooms => {
+    //   this.roomList = rooms;
+    //   this.title = this.getTitle();
+    // }); 
     
   }
 
@@ -154,5 +156,11 @@ export class RoomsComponent implements OnInit, OnChanges, AfterViewInit {
       this.roomService.delete(roomid).subscribe((data) => {
         this.roomList = data;
     }) 
+  }
+
+  ngOnDestroy() {
+    if(this.subscription) {
+      this.subscription.unsubscribe()
+    }
   }
 }

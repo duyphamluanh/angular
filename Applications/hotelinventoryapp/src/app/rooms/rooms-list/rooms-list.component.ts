@@ -9,7 +9,7 @@ import { Rooms, Room } from '../rooms';
 })
 export class RoomsListComponent implements OnInit, OnChanges, OnDestroy{
   @Input() title: string = "";
-  @Input() roomList: Rooms[] = [];
+  @Input() rooms: Rooms[] | null= [];
   @Output() selectedRoom = new EventEmitter<Rooms>(); 
   @Output() deletedRoom = new EventEmitter<string>(); 
 
@@ -33,13 +33,13 @@ export class RoomsListComponent implements OnInit, OnChanges, OnDestroy{
       this.title = changes['title'].currentValue;
       console.log('Room list title changed: ' + this.title)
     }
-    if(changes['roomList']) {
+    if(changes['rooms']) {
       console.log('Room list changed');
     }
     console.log(changes)
   }
 
   ngOnDestroy(): void {
-    console.log('roomlist: on destroy is called');
+    console.log('rooms: on destroy is called');
   }
 }

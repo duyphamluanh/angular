@@ -1,9 +1,7 @@
 <app-header #roomheader></app-header>
 <!-- Interpolation -->
 <div>Room name: <strong>{{hotelName}}</strong></div>
-<!-- <div [hidden]="hideRooms" [ngClass]="{ 'highlight': !hideRooms}"> -->
 <div [hidden]="hideRooms">
-    <!-- <div [innerText]="'Current quantity: ' + numberOfRooms"></div> -->
     Number Of Rooms: 
     <span [ngStyle]="{'color': rooms.availableRooms ? 'green' :'red'}" [innerText]="numberOfRooms"></span>
     {{ rooms.totalRooms < 0 ? "No rooms" : ''}}
@@ -15,9 +13,10 @@
     <div>
         <button (click)="addRoom()">Add Room</button>
     </div>
-
     <div *ngIf="rooms.availableRooms > 0 && !hideRooms">
-        <app-rooms-list [roomList]="roomList" (selectedRoom)="selectRoom($event)" (deletedRoom)="deleteRoom($event)" [title]="title"></app-rooms-list>
+        <div *ngIf="rooms$ | async as rooms">
+            <app-rooms-list [rooms]="rooms" (selectedRoom)="selectRoom($event)" (deletedRoom)="deleteRoom($event)" [title]="title"></app-rooms-list>
+        </div>
     </div>
 </div>
 <!-- Event binding -->

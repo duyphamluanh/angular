@@ -3,7 +3,7 @@ import { Rooms } from '../rooms';
 import { APP_SERVICE_CONFIG } from '../../AppConfig/appconfig.service';
 import { AppConfig } from 'src/app/AppConfig/appconfig.interface';
 import { HttpClient, HttpRequest } from '@angular/common/http';
-import { finalize } from 'rxjs';
+import { finalize, shareReplay } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +14,11 @@ export class RoomsService {
     @Inject(APP_SERVICE_CONFIG) private config: AppConfig, 
     private http: HttpClient) {
   }
+
+  // Using $ to denote that this is a stream
+  getRooms$ = this.http.get<Rooms[]>('/api/rooms').pipe(
+    shareReplay(1)
+  )
 
   getRooms() {
     return this.http.get<Rooms[]>('/api/rooms');
