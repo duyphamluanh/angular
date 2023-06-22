@@ -9,13 +9,15 @@
     <div *ngIf="selectedRoom">
         {{selectedRoom | json}}
     </div>
-
+    <h1>
+        {{ getError$ | async }}
+    </h1>
     <div>
         <button (click)="addRoom()">Add Room</button>
     </div>
     <div *ngIf="rooms.availableRooms > 0 && !hideRooms">
         <div *ngIf="rooms$ | async as rooms">
-            <app-rooms-list [rooms]="rooms" (selectedRoom)="selectRoom($event)" (deletedRoom)="deleteRoom($event)" [title]="title"></app-rooms-list>
+            <app-rooms-list [rooms]="rooms" (selectedRoom)="selectRoom($event)" (deletedRoom)="deleteRoom($event)" [roomCount]="roomsCount$ | async" ></app-rooms-list>
         </div>
     </div>
 </div>

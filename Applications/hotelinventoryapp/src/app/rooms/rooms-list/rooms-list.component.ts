@@ -10,6 +10,7 @@ import { Rooms, Room } from '../rooms';
 export class RoomsListComponent implements OnInit, OnChanges, OnDestroy{
   @Input() title: string = "";
   @Input() rooms: Rooms[] | null= [];
+  @Input() roomCount!: number | null ;
   @Output() selectedRoom = new EventEmitter<Rooms>(); 
   @Output() deletedRoom = new EventEmitter<string>(); 
 

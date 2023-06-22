@@ -3,7 +3,7 @@ import { Room, Rooms } from './rooms';
 import { HeaderComponent } from '../header/header.component';
 import { RoomsListComponent } from './rooms-list/rooms-list.component';
 import { RoomsService } from './service/rooms.service';
-import { Observable, Subscription, tap } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, Subscription, catchError, map, of, tap } from 'rxjs';
 import { HttpEventType, HttpProgressEvent } from '@angular/common/http';
 
 @Component({
@@ -38,15 +38,26 @@ export class RoomsComponent implements OnInit, OnChanges, AfterViewInit, OnDestr
   };
   roomList: Rooms[] = [];
   selectedRoom: Rooms | undefined;
+
   titleBase: String = "Room list";
+
   subscription! : Subscription;
-  rooms$ =  this.roomService.getRooms$;
+
+  error$ = new Subject<string>;
+  getError$ = this.error$.asObservable();
+
+  rooms$: BehaviorSubject<Rooms[]> = new BehaviorSubject<Rooms[]>([]);
+
+  roomsCount$ = this.roomService.getRooms$.pipe(
+    map((rooms) => rooms.length)
+  )
 
   constructor(@Optional() private roomService: RoomsService) { // Dependencies Injection
     // this.roomList = this.roomService.getRooms(); // We should call it in ngOnInit when the components properties and inputs are fully intialized
   }
 
   ngOnInit(): void {
+
     console.log('RoomsComponent inited.')
     this.stream.subscribe({
       next: (value) => console.log(value),
@@ -77,6 +88,14 @@ export class RoomsComponent implements OnInit, OnChanges, AfterViewInit, OnDestr
           break;
       }
     });
+    this.roomService.getRooms$.pipe(
+      catchError((err) => {
+        this.error$.next(err.message);
+        return of([]);
+      })
+    ).subscribe((rooms) => {
+      this.rooms$.next(rooms);
+    });
     // this.roomService?.getRooms().subscribe(rooms => {
     // this.subscription = this.roomService?.getRooms$.subscribe(rooms => {
     //   this.roomList = rooms;
@@ -100,9 +119,9 @@ export class RoomsComponent implements OnInit, OnChanges, AfterViewInit, OnDestr
     }, 0);
   }
 
-  getTitle(): string {
-    return this.titleBase + ' (' + this.roomList.length.toString() + ')';
-  }
+  // getTitle(): string {
+  //   return this.titleBase + ' (' + this.roomList.length.toString() + ')';
+  // }
 
   toggle() {
     this.hideRooms = !this.hideRooms;
@@ -129,9 +148,15 @@ export class RoomsComponent implements OnInit, OnChanges, AfterViewInit, OnDestr
 
     // this.roomList.push(room);
     // this.roomList = [...this.roomList,room];
-    this.roomService.addRooms(room).subscribe((data) => {
-      this.roomList = data;
-      this.title = this.getTitle();
+    this.roomService.addRooms(room).pipe(
+      catchError((err) => {
+        this.error$.next(err.message);
+        return of([]);
+      })
+    ).subscribe((rooms) => {
+      this.rooms$.next(rooms);
+      // this.roomList = data;
+      // this.title = this.getTitle();
     });
   }
 
@@ -147,14 +172,26 @@ export class RoomsComponent implements OnInit, OnChanges, AfterViewInit, OnDestr
         checkoutTime: new Date('13-Nov-2022'),
         rating: 5,
     }
-    this.roomService.editRoom(room).subscribe((data) => {
-        this.roomList = data;
+    this.roomService.editRoom(room).pipe(
+      catchError((err) => {
+        this.error$.next(err.message);
+        return of([]);
+      })
+    ).subscribe((rooms) => {
+        // this.roomList = data;
+        this.rooms$.next(rooms);
     }) 
   }
   
   deleteRoom(roomid: string) {
-      this.roomService.delete(roomid).subscribe((data) => {
-        this.roomList = data;
+    this.roomService.delete(roomid).pipe(
+      catchError((err) => {
+        this.error$.next(err.message);
+        return of([]);
+      })
+    ).subscribe((rooms) => {
+        // this.roomList = data;
+        this.rooms$.next(rooms);
     }) 
   }
 
