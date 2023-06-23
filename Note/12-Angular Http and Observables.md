@@ -62,13 +62,3 @@ ngOnInit(): void {
     }); 
     }
 ```
-#### http methods
-
-
-#### RxJs Operators
-
-
-#### Http Interceptors 
-
-
-#### APP_INITIALIZERS
