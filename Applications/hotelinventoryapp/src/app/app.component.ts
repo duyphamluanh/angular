@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ComponentRef, ElementRef, Inject, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { RoomsComponent } from './rooms/rooms.component';
 import { LocalStorageToken } from './localstorage.token';
+import { InitService } from './service/init.service';
 
 
 @Component({
@@ -26,8 +27,8 @@ OnInit
   // ngAfterViewInit(): void {
   //   const componentRef = this.vcr.createComponent(RoomsComponent);
   // }
-  constructor(@Inject(LocalStorageToken) private localstoragetoken: Storage) {
-
+  constructor(@Inject(LocalStorageToken) private localstoragetoken: Storage, private initService: InitService) {
+    console.log(initService.config)
   }
 
   ngOnInit(): void {

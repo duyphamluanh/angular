@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
@@ -13,6 +13,12 @@ import { APP_CONFIG, APP_SERVICE_CONFIG } from './AppConfig/appconfig.service';
 import { RequestInterceptor } from './interceptors/request.interceptor';
 import { HeadersInterceptor } from './interceptors/headers.interceptor';
 import { ResponseInterceptor } from './interceptors/response.interceptor';
+import { InitService } from './service/init.service';
+
+function initFactory(initService: InitService) {
+  return () => initService.init();
+}
+
 
 @NgModule({
   declarations: [
@@ -47,6 +53,12 @@ import { ResponseInterceptor } from './interceptors/response.interceptor';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ResponseInterceptor,
+      multi: true
+    },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initFactory,
+      deps: [InitService],
       multi: true
     }
   ],

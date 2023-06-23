@@ -11,6 +11,9 @@
         },
         "@schematics/angular:interceptor": {
           "path": "src/app/interceptors"
+        },
+        "@schematics/angular:service": {
+          "path": "src/app/service"
         }
       },
       "root": "",
